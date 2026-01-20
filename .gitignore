@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 sample.json
+fb-export.json
+
