@@ -9,7 +9,6 @@ import { Label } from "./ui/label";
 import type { Conversation } from "@/types/conversation.types";
 import { Button } from "./ui/button";
 import { Messages } from "./Messages";
-import { matchSorter } from "match-sorter";
 import type { DateRange } from "react-day-picker";
 
 export const Dashboard = () => {
@@ -19,7 +18,13 @@ export const Dashboard = () => {
   const resultsMessages = useMemo(() => {
     const messages = conversation?.messages ?? [];
 
-    return query ? matchSorter(messages, query, { keys: ["text"] }) : messages;
+    if (!query) return messages;
+
+    const lowerQuery = query.toLowerCase();
+
+    return messages.filter((msg) =>
+      msg.text.toLowerCase().includes(lowerQuery),
+    );
   }, [conversation?.messages, query]);
 
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
