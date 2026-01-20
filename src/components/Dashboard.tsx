@@ -10,6 +10,7 @@ import type { Conversation } from "@/types/conversation.types";
 import { Button } from "./ui/button";
 import { Messages } from "./Messages";
 import type { DateRange } from "react-day-picker";
+import { convertToMessageType } from "@/utils/helpers";
 
 export const Dashboard = () => {
   const [conversation, setConversation] = useState<Conversation | null>(null);
@@ -65,8 +66,14 @@ export const Dashboard = () => {
                 if (!(typeof fileContents === "string")) return;
 
                 const jsonData: Conversation = JSON.parse(fileContents);
+                const isFacebookExport = "sender_name" in jsonData.messages[0];
+                const initJsonDataMessages: Conversation["messages"] =
+                  isFacebookExport
+                    ? convertToMessageType(jsonData.messages)
+                    : jsonData.messages;
+
                 const messagesWithId: Conversation["messages"] =
-                  jsonData.messages.map((elem) => ({
+                  initJsonDataMessages.map((elem) => ({
                     ...elem,
                     id: crypto.randomUUID(),
                   }));

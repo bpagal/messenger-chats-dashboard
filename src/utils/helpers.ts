@@ -23,8 +23,14 @@ export const formatTime = (ts: number) => {
   return `${shortDate} ${fullDate}, ${time}`;
 };
 
-export const formatText = (str: string) => str;
-// .replace(/&/g, "&amp;")
-// .replace(/</g, "&lt;")
-// .replace(/>/g, "&gt;")
-// .replace(/\n/g, "<br>");
+export const convertToMessageType = (data: any) => {
+  return data.map((elem: any) => ({
+    isUnsent: false,
+    media: [],
+    reactions: [],
+    senderName: elem.sender_name,
+    text: elem.content,
+    timestamp: elem.timestamp_ms,
+    type: "text",
+  }));
+};
