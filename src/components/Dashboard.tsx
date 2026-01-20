@@ -95,6 +95,11 @@ export const Dashboard = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
+          {!!query && (
+            <h3>
+              Search results for {query}: {resultsMessages.length}
+            </h3>
+          )}
 
           <Popover>
             <PopoverTrigger asChild>
