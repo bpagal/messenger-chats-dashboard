@@ -21,10 +21,10 @@ export const Dashboard = () => {
 
     if (!query) return messages;
 
-    const lowerQuery = query.toLowerCase();
+    const lowerQuery = query?.toLowerCase();
 
-    return messages.filter((msg) =>
-      msg.text.toLowerCase().includes(lowerQuery),
+    return messages?.filter((msg) =>
+      msg.text?.toLowerCase().includes(lowerQuery),
     );
   }, [conversation?.messages, query]);
 
@@ -37,7 +37,9 @@ export const Dashboard = () => {
       const from = new Date(dateRange.from).setHours(0, 0, 0, 0);
       const to = new Date(dateRange.to).setHours(23, 59, 59, 999);
 
-      msgs = msgs.filter((msg) => msg.timestamp >= from && msg.timestamp <= to);
+      msgs = msgs?.filter(
+        (msg) => msg.timestamp >= from && msg.timestamp <= to,
+      );
     }
 
     // ALWAYS sort ascending by date (oldest → newest)
