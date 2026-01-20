@@ -11,6 +11,7 @@ type Message = {
   text: string;
   timestamp: number;
   type: "text";
+  id: string;
 };
 
 export type Conversation = {
